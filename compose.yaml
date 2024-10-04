@@ -9,7 +9,7 @@
 # https://github.com/docker/awesome-compose
 services:
   server:
-    image: ghcr.io/noobgab/redesigned-guacamole
+    image: ghcr.io/noobgab/redesigned-guacamole:prod
     container_name: guestbook
     ports:
       - 8080:8080
