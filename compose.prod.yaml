@@ -27,7 +27,7 @@ services:
       - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
   guestbook:
-    image: ghcr.io/dreamsofcode-io/guestbook:prod
+    image: ghcr.io/noobgab/redesigned-guacamole:prod
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.guestbook.rule=Host(`zenful.cloud`)"
@@ -64,7 +64,7 @@ services:
     expose:
       - 5432
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: ["CMD", "pg_isready"]
       interval: 10s
       timeout: 5s
       retries: 5
