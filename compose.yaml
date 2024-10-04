@@ -11,17 +11,26 @@ services:
   reverse-proxy:
     image: traefik:v3.1
     command:
-      - "--providers.docker"
       - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=gab@gabstas.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
-      - "8080:8080"
+      - "443:443"
     volumes:
+      - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
   guestbook:
     image: ghcr.io/noobgab/redesigned-guacamole:prod
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.guestbook.rule=Host(`gabstas.com`)"
+      - "traefik.http.routers.guestbook.entrypoints=websecure"
+      - "traefik.http.routers.guestbook.tls.certresolver=myresolver"
     secrets:
       - db-password
     environment:
@@ -64,6 +73,7 @@ services:
       retries: 5
 volumes:
   db-data:
+  letsencrypt:
 secrets:
   db-password:
     file: db/password.txt
