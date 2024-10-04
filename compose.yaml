@@ -18,11 +18,10 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  server:
+  guestbook:
     image: ghcr.io/noobgab/redesigned-guacamole:prod
     labels:
       - "traefik.http.routers.guestbook.rule=Host(`gabstas.com`)"
-    container_name: guestbook
     secrets:
       - db-password
     environment:
