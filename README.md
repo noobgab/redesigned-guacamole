@@ -1,4 +1,4 @@
-# Guestbook
+# Guestbook [![Go](https://github.com/noobgab/redesigned-guacamole/actions/workflows/go.yaml/badge.svg?branch=main)](https://github.com/noobgab/redesigned-guacamole/actions/workflows/go.yaml)
 
 This is the code used for the Dreams of Code video on setting up a production ready VPS using Docker, Docker Compose, Traefik, and Watchtower.
 
