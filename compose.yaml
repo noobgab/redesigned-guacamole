@@ -9,10 +9,10 @@
 # https://github.com/docker/awesome-compose
 services:
   reverse-proxy:
-    image: traefik:latest
+    image: traefik:v3.1
     command:
-      - "--api.insecure=true"
       - "--providers.docker"
+      - "--api.insecure=true"
     ports:
       - "80:80"
       - "8080:8080"
@@ -31,6 +31,9 @@ services:
       - POSTGRES_DB=guestbook
       - POSTGRES_PORT=5432
       - POSTGRES_SSLMODE=disable
+    deploy:
+      mode: replicated
+      replicas: 3
     depends_on:
       db:
         condition: service_healthy
