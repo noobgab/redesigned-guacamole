@@ -8,11 +8,19 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
+  reverse-proxy:
+    image: traefik:latest
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   server:
     image: ghcr.io/noobgab/redesigned-guacamole:prod
     container_name: guestbook
-    ports:
-      - 8080:8080
     secrets:
       - db-password
     environment:
