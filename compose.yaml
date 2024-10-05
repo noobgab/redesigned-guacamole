@@ -15,8 +15,11 @@ services:
       - "--interval"
       - "30"
       - "--rolling-restart"
+    environment:
+      - DOCKER_CONFIG=/config
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker:/config
   reverse-proxy:
     image: traefik:v3.1
     command:
